@@ -1,5 +1,5 @@
 #######################################
-# CentOS7¿¡¼­ docker ¼³Ä¡
+# CentOS7ì—ì„œ docker ì„¤ì¹˜
 #######################################
 https://docs.docker.com/engine/installation/centos/
 
@@ -19,7 +19,7 @@ $ sudo chkconfig docker on
 $ sudo docker info
 
 #######################################
-# Docker ÀÛ¾÷ µð·ºÅä¸®¸¦ º¯°æ
+# Docker ìž‘ì—… ë””ë ‰í† ë¦¬ë¥¼ ë³€ê²½
 #######################################
 https://docs.docker.com/engine/articles/systemd/
 
@@ -27,12 +27,12 @@ $ mkdir /home/docker
 
 $ cp -R  /var/lib/docker/* /home/docker 
 
-# service file À§Ä¡ È®ÀÎ
+# service file ìœ„ì¹˜ í™•ì¸
 $ sudo systemctl status docker | grep Loaded
 
-#service file¿¡ ¾Æ·¡ ³»¿ë Ãß°¡
+#service fileì— ì•„ëž˜ ë‚´ìš© ì¶”ê°€
 EnvironmentFile=-/etc/sysconfig/docker
-$OPTIONS  Ãß°¡
+$OPTIONS  ì¶”ê°€
 
 $ sudo vi /etc/sysconfig/docker
 OPTIONS="-g /home/docker"
@@ -42,14 +42,14 @@ $ sudo reboot
 
 
 #######################################
-## CentOS7¿¡¼­ docker·Î multi-host networking ¼³Á¤
+## CentOS7ì—ì„œ dockerë¡œ multi-host networking ì„¤ì •
 #######################################
 
 https://docs.docker.com/engine/userguide/networking/get-started-overlay/
 
 ######################################
-# »çÀü ÀÛ¾÷
-# 1. CentOS7¿¡¼­ kernelÀ» 3.18·Î ¾÷±×·¹ÀÌµå
+# ì‚¬ì „ ìž‘ì—…
+# 1. CentOS7ì—ì„œ kernelì„ 3.18ë¡œ ì—…ê·¸ë ˆì´ë“œ
 
 systemctl list-unit-files | grep fire
 systemctl list-unit-files | grep iptables
@@ -69,16 +69,16 @@ rpm -Uvh kernel-ml-3.18.6-1.el7.elrepo.x86_64.rpm
 rpm -Uvh kernel-ml-devel-3.18.6-1.el7.elrepo.x86_64.rpm
 
 vi /boot/grub2/grubenv
-saved_entry=CentOS Linux (3.18.6-1.el7.elrepo.x86_64) 7 (Core)  ·Î º¯°æÇÔ.
+saved_entry=CentOS Linux (3.18.6-1.el7.elrepo.x86_64) 7 (Core)  ë¡œ ë³€ê²½í•¨.
 
 reboot 
 
-# Ä¿³Î¹öÀü È®ÀÎ
+# ì»¤ë„ë²„ì „ í™•ì¸
 uname -r 
 3.18.6-1.el7.elrepo.x86_64
 
 ######################################
-# 2. docker-machine ¼³Ä¡
+# 2. docker-machine ì„¤ì¹˜
 https://docs.docker.com/machine/install-machine/
 
 curl -L https://github.com/docker/machine/releases/download/v0.5.3/docker-machine_linux-amd64 >/usr/local/bin/docker-machine && \
@@ -87,7 +87,7 @@ curl -L https://github.com/docker/machine/releases/download/v0.5.3/docker-machin
 docker-machine version
 
 ######################################
-# 3.  VirtualBox5 ¼³Ä¡
+# 3.  VirtualBox5 ì„¤ì¹˜
 http://www.if-not-true-then-false.com/2010/install-virtualbox-with-yum-on-fedora-centos-red-hat-rhel/
 
 cd /etc/yum.repos.d/
@@ -103,7 +103,7 @@ export KERN_DIR=/usr/src/kernels/3.18.6-1.el7.elrepo.x86_64/
 /usr/lib/virtualbox/vboxdrv.sh setup
 
 ######################################
-# ¼³Ä¡
+# ì„¤ì¹˜
 ######################################
 # Step 1: Set up a key-value store
 

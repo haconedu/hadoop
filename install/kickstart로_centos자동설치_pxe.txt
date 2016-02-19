@@ -1,12 +1,12 @@
-0. ÁØºñ
-¹æÈ­º® OFF
+0. ì¤€ë¹„
+ë°©í™”ë²½ OFF
 vi /etc/selinux/config
 SELINUX=disabled
 reboot
 
-Àåºñ IP : 192.168.0.10
+ìž¥ë¹„ IP : 192.168.0.10
 
-1. TFTP ¼³Ä¡ ¹× ¼³Á¤
+1. TFTP ì„¤ì¹˜ ë° ì„¤ì •
 [root@localhost /]# yum install -y tftp tftp-server
 [root@localhost /]# vi /etc/xinetd.d/tftp
 # default: off
@@ -38,11 +38,11 @@ aaaaaaaaaaa
 [root@localhost /]# tftp 192.168.0.10 -c get readme.txt
 
 
-2. syslinux ¼³Ä¡
+2. syslinux ì„¤ì¹˜
 [root@localhost /]# yum install  -y syslinux
 
 
-3. DHCP ¼³Ä¡ ¹× ¼³Á¤
+3. DHCP ì„¤ì¹˜ ë° ì„¤ì •
 [root@localhost /]# yum install -y dhcp dhcp-devel
 [root@localhost /]# vi /etc/dhcp/dhcpd.conf
 ddns-update-style none;
@@ -59,20 +59,20 @@ class "pxeclients" {
         filename "pxelinux.0";
 }
 
-#Windows Å¬¶óÀÌ¾ðÆ® Å¬·¡½º ¼³Á¤
+#Windows í´ë¼ì´ì–¸íŠ¸ í´ëž˜ìŠ¤ ì„¤ì •
 class "ms-clients" {
         match if substring (option vendor-class-identifier, 0, 4) = "MSFT";
 }
 
-# DHCP ¼­¹ö°¡ µ¹°í ÀÖ´Â ¸®´ª½º ¸Ó½Å Å¬·¡½º ¼³Á¤
+# DHCP ì„œë²„ê°€ ëŒê³  ìžˆëŠ” ë¦¬ëˆ…ìŠ¤ ë¨¸ì‹  í´ëž˜ìŠ¤ ì„¤ì •
 class "linux-dhcp" {
         match if substring (option vendor-class-identifier, 0, 5) = "Linux";
 }
 
 subnet 192.168.0.0 netmask 255.255.255.0 {
-       # option routers  GATEWAYÁÖ¼Ò;
+       # option routers  GATEWAYì£¼ì†Œ;
         option routers 192.168.0.1;
-        #option broadcast-address ºê·ÎµåÄ³½ºÆ® ÁÖ¼Ò;
+        #option broadcast-address ë¸Œë¡œë“œìºìŠ¤íŠ¸ ì£¼ì†Œ;
         option broadcast-address 192.168.0.255;
         pool {
                 deny members of "ms-clients";
@@ -83,9 +83,9 @@ subnet 192.168.0.0 netmask 255.255.255.0 {
 }
 
 
-4. NFS ¼³Ä¡ ¹× ¼³Á¤
+4. NFS ì„¤ì¹˜ ë° ì„¤ì •
 [root@localhost /]# yum install -y nfs-utils
-   ; CentOS ÃÖ½Å¹öÀü ´Ù¿î·Îµå ¹× mount
+   ; CentOS ìµœì‹ ë²„ì „ ë‹¤ìš´ë¡œë“œ ë° mount
 [root@localhost /]# mkdir -p /home/centos/iso && cd  /home/centos/iso
 [root@localhost /]# wget ftp://centos.mirror.cdnetworks.com/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-bin-DVD1.iso
 [root@localhost /]# mkdir /home/centos/tmp
@@ -109,7 +109,7 @@ subnet 192.168.0.0 netmask 255.255.255.0 {
 [root@localhost /]# exportfs -a
 
 
-5. PXE È¯°æ¼³Á¤ ¹× ºÎÆÃÀÌ¹ÌÁö º¹»ç
+5. PXE í™˜ê²½ì„¤ì • ë° ë¶€íŒ…ì´ë¯¸ì§€ ë³µì‚¬
 [root@localhost /]# cd /tftpboot
 [root@localhost /]# mkdir centos6.7  centos7.2   ks   pxelinux.cfg
 [root@localhost /]# cp /usr/share/syslinux/pxelinux.0 /tftpboot/
@@ -146,47 +146,47 @@ label 2
   append ksdevice=eth0 initrd=centos7.2/initrd.img network ks=nfs:192.168.0.10:/tftpboot/ks/ks72.cfg text
 
 
-6. kickstart ¼³Á¤
+6. kickstart ì„¤ì •
 [root@localhost /]# vi /tftpboot/ks/ks67.cfg  or  /tftpboot/ks/ks72.cfg
-#install ¶Ç´Â upgrade
+#install ë˜ëŠ” upgrade
 install
-# ¼³Ä¡ ¸ðµå ÁöÁ¤ (ÀÌ ¿É¼ÇÀÌ ¾øÀ¸¸é ±×·¡ÇÈ ¸ðµå·Î ¼³Ä¡°¡ ÁøÇà µË´Ï´Ù.)
+# ì„¤ì¹˜ ëª¨ë“œ ì§€ì • (ì´ ì˜µì…˜ì´ ì—†ìœ¼ë©´ ê·¸ëž˜í”½ ëª¨ë“œë¡œ ì„¤ì¹˜ê°€ ì§„í–‰ ë©ë‹ˆë‹¤.)
 text 
-# ¹Ì·¯¸µ ¼­¹ö ÁöÁ¤
-# ¿¹) url --url http://centos.mirror.cdnetworks.com/centos/5.4/os/i386
-# ¿¹) nfs --server=192.168.0.1 --dir=/mnt/md0
+# ë¯¸ëŸ¬ë§ ì„œë²„ ì§€ì •
+# ì˜ˆ) url --url http://centos.mirror.cdnetworks.com/centos/5.4/os/i386
+# ì˜ˆ) nfs --server=192.168.0.1 --dir=/mnt/md0
 nfs --server=192.168.0.10 --dir=/home/centos/6.7  or  /home/centos/7.2
-# ¾ð¾î¼±ÅÃÀ¸·Î ±âº»¼³Á¤ »ç¿ë. 
-# langsupport ¿¡ ko_KR.UTF-8 ¸¦ Ãß°¡ÇØÁÖ¸é ÇÑ±¹¾î Áö¿ø. 
-# ¿¹) langsupport --default=en_US.UTF-8 en_US.UTF-8 ko_KR.UTF-8 
+# ì–¸ì–´ì„ íƒìœ¼ë¡œ ê¸°ë³¸ì„¤ì • ì‚¬ìš©. 
+# langsupport ì— ko_KR.UTF-8 ë¥¼ ì¶”ê°€í•´ì£¼ë©´ í•œêµ­ì–´ ì§€ì›. 
+# ì˜ˆ) langsupport --default=en_US.UTF-8 en_US.UTF-8 ko_KR.UTF-8 
 lang en_US.UTF-8
 langsupport --default=en_US.UTF-8 en_US.UTF-8 ko_KR.UTF-8 
-# Å°º¸µå ¼³Á¤ 
+# í‚¤ë³´ë“œ ì„¤ì • 
 keyboard us
-# ¸¶¿ì½º ¼³Á¤
+# ë§ˆìš°ìŠ¤ ì„¤ì •
 mouse none
-# ³×Æ®¿÷ ¼³Á¤
-# dhcp ·Î ip¸¦ °¡Á®¿ÀÁö ¸øÇÏ¸é °íÁ¤ ip ¼³Á¤È­¸éÀÌ ³ª¿É´Ï´Ù.
-# ¾Æ·¡ ÁÖ¼®Àº ¿©·¯°¡Áö ÇüÅÂÀÇ ³×Æ®¿÷ ¼³Á¤¹æ¹ýÀ» ¿¹·Î º¸¿©ÁØ °Í ÀÔ´Ï´Ù. 
+# ë„¤íŠ¸ì› ì„¤ì •
+# dhcp ë¡œ ipë¥¼ ê°€ì ¸ì˜¤ì§€ ëª»í•˜ë©´ ê³ ì • ip ì„¤ì •í™”ë©´ì´ ë‚˜ì˜µë‹ˆë‹¤.
+# ì•„ëž˜ ì£¼ì„ì€ ì—¬ëŸ¬ê°€ì§€ í˜•íƒœì˜ ë„¤íŠ¸ì› ì„¤ì •ë°©ë²•ì„ ì˜ˆë¡œ ë³´ì—¬ì¤€ ê²ƒ ìž…ë‹ˆë‹¤. 
 #network --bootproto dhcp 
 #network --bootproto static  
 network --device eth0 --bootproto dhcp 
 #network --device eth0 --bootproto static --ip 192.168.0.251 --netmask 255.255.255.0 --gateway 192.168.0.1 --nameserver 168.126.63.1 --hostname sunxxx
-# root ÆÐ½º¿öµå ÀÔ´Ï´Ù. ¿øÇÏ½Ã´Â°É·Î ¹Ù²Ù½Ã¸éµË´Ï´Ù. 
+# root íŒ¨ìŠ¤ì›Œë“œ ìž…ë‹ˆë‹¤. ì›í•˜ì‹œëŠ”ê±¸ë¡œ ë°”ê¾¸ì‹œë©´ë©ë‹ˆë‹¤. 
 rootpw  1234567890
-# firewall ¼³Á¤ ´Ü°è·Î °³ÀÎÀûÀ¸·Î os ¼³Ä¡¿Ï·áÈÄ ¼³Á¤ÇÒ °ÍÀ» ±ÇÀåÇÕ´Ï´Ù. 
+# firewall ì„¤ì • ë‹¨ê³„ë¡œ ê°œì¸ì ìœ¼ë¡œ os ì„¤ì¹˜ì™„ë£Œí›„ ì„¤ì •í•  ê²ƒì„ ê¶Œìž¥í•©ë‹ˆë‹¤. 
 firewall --disabled 
-# selinux ¼³Á¤ ´Ü°è·Î ¿Ïº®ÇÏ°Ô ÀÌÇØ ÇÏÁö ¸øÇÑ´Ù¸é disabled ÇÏ´Â°ÍÀ» ±ÇÀåÇÕ´Ï´Ù. 
+# selinux ì„¤ì • ë‹¨ê³„ë¡œ ì™„ë²½í•˜ê²Œ ì´í•´ í•˜ì§€ ëª»í•œë‹¤ë©´ disabled í•˜ëŠ”ê²ƒì„ ê¶Œìž¥í•©ë‹ˆë‹¤. 
 selinux --disabled 
-# ½Ã½ºÅÛ¿¡¼­ »ç¿ëµÉ ÀÎÁõ ¿É¼ÇÀ» ¼³Á¤ÇÕ´Ï´Ù. ±âº»°ª »ç¿ë 
+# ì‹œìŠ¤í…œì—ì„œ ì‚¬ìš©ë  ì¸ì¦ ì˜µì…˜ì„ ì„¤ì •í•©ë‹ˆë‹¤. ê¸°ë³¸ê°’ ì‚¬ìš© 
 authconfig --enableshadow --enablemd5
-# timezone ¼³Á¤
+# timezone ì„¤ì •
 timezone --utc Asia/Seoul
-# ºÎÆ®·Î´õ ¼³Á¤ 
+# ë¶€íŠ¸ë¡œë” ì„¤ì • 
 bootloader --location=mbr --driveorder=sda --append="rhgb quiet"
-# ½Ã½ºÅÛ¿¡ ÀÖ´Â ¸ðµç ÆÄÆ¼¼ÇÀ» »èÁ¦ ÇÕ´Ï´Ù. 
+# ì‹œìŠ¤í…œì— ìžˆëŠ” ëª¨ë“  íŒŒí‹°ì…˜ì„ ì‚­ì œ í•©ë‹ˆë‹¤. 
 clearpart --initlabel --all
-# ÆÄÆ¼¼ÇÀ» ³ª´¯´Ï´Ù.
+# íŒŒí‹°ì…˜ì„ ë‚˜ëˆ•ë‹ˆë‹¤.
 part / --fstype ext3 --size=10240  ---ndisk=sda 
 part swap --size=8192 ---ndisk=sda 
 part /tmp --fstype ext3 --size=4096 ---ndisk=sda
@@ -194,11 +194,11 @@ part /var --fstype ext3 --size=10240 ---ndisk=sda
 part /usr --fstype ext3 --size=20720 ---ndisk=sda
 part /home --fstype ext3 --size=1 --grow ---ndisk=sda
 #reboot
-# ÆÐÅ°Áö¸¦ ¼±ÅÃÇÕ´Ï´Ù. (³ª¸ÓÁö´Â ¼³Ä¡ ¿Ï·á ÈÄ yum À¸·Î ¼³Ä¡)
+# íŒ¨í‚¤ì§€ë¥¼ ì„ íƒí•©ë‹ˆë‹¤. (ë‚˜ë¨¸ì§€ëŠ” ì„¤ì¹˜ ì™„ë£Œ í›„ yum ìœ¼ë¡œ ì„¤ì¹˜)
 %packages
 @development-tools
 
-# ¼³Ä¡ ÈÄ ½ÇÇàÇÒ ½©½ºÅ©¸³Æ®
+# ì„¤ì¹˜ í›„ ì‹¤í–‰í•  ì‰˜ìŠ¤í¬ë¦½íŠ¸
 %post
 #wget -q -O - http://linux.dell.com/repo/hardware/latest/bootstrap.cgi | bash
 #yum install -y srvadmin-all
@@ -206,7 +206,7 @@ part /home --fstype ext3 --size=1 --grow ---ndisk=sda
 #echo "options bnx2 disable_msi=1" >> /etc/modprobe.conf
 
 
-7. ¼­ºñ½º ½ÃÀÛ(¼ø¼­´ë·Î!!)
+7. ì„œë¹„ìŠ¤ ì‹œìž‘(ìˆœì„œëŒ€ë¡œ!!)
 [root@localhost /]# service xinetd start
 [root@localhost /]# service dhcpd start
 [root@localhost /]# service portmap start
