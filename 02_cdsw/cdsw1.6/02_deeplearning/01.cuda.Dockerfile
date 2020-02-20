@@ -19,7 +19,7 @@ LABEL com.nvidia.cuda.version="${CUDA_VERSION}"
 
 ENV CUDA_PKG_VERSION 10-0_$CUDA_VERSION-1
 RUN apt-get update &&  \
-    apt-get install -y --no-install-recommends cuda-10-0 cuda-cudart-10-0 && \
+    apt-get install -y --no-install-recommends  cuda-cudart-10-0 && \
     ln -s cuda-10.0 /usr/local/cuda && \
     rm -rf /var/lib/apt/lists/*
 
