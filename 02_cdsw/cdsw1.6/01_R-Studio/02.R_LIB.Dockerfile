@@ -291,4 +291,8 @@ RUN R -e "install.packages('tibble', repos='${REPO_URL}') " && \
     R -e "install.packages('ykmeans', repos='${REPO_URL}') " && \
     R -e "install.packages('zoo', repos='${REPO_URL}') "
     
-
+##################################################
+## STEP 08
+################################################## 
+RUN R -e "install.packages('seasonal', repos='${REPO_URL}') "  && \
+    R -e "install.packages('h2o', repos='${REPO_URL}') "
