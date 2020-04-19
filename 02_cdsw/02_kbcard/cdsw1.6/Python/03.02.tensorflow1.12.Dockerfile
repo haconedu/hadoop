@@ -1,0 +1,12 @@
+FROM  conda.cuda9.docker.repository.cloudera.com/cdsw/engine:8
+
+RUN apt-get update &&  \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
+    apt-get install -y gcc-4.9 && \
+    apt-get upgrade -y libstdc++6 
+
+RUN /opt/conda/envs/python3.6/bin/pip  install --no-cache-dir --no-clean -v netifaces \
+        tensorflow-gpu==1.12.0   Keras==2.2.0   Keras-Applications==1.0.4  keras_preprocessing==1.0.2
+
