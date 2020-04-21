@@ -17,11 +17,10 @@
 
 - rstudio.{company domain}.Dockerfile
 ```
-#Dockerfile Naming Rule : rstudio.{company domain}:/cdsw/engine:8 
-#                                 회사의 도메인명                  cdsw의 engine v8에서 생성을 의미
-# 예시  :  rstudio.kbcard.com:/cdsw/engine:8
-#        rstudio.kt.com:/cdsw/engine:8
-#        rstudio.shinhan.com:/cdsw/engine:8
+#Dockerfile Naming Rule : rstudio.{company domain}.Dockerfile
+#                                    회사의 도메인명                
+# 예시  :  rstudio.kbcard.com.Dockerfile
+#       rstudio.kt.com.Dockerfile
 
 FROM docker.repository.cloudera.com/cdsw/engine:8
 
@@ -58,8 +57,83 @@ ENV REPO_URL  https://cran.seoul.go.kr/
 RUN R -e "install.packages('패키지명01', repos='${REPO_URL}') " && \
     R -e "install.packages('패키지명02', repos='${REPO_URL}') " && \ 
     R -e "install.packages('패키지명03', repos='${REPO_URL}') " 
+#   .... 
 
 ```
+
+
+- rserver.conf
+```
+# Must match CDSW_APP_PORT
+www-port=8090
+server-app-armor-enabled=0
+server-daemonize=0
+www-address=127.0.0.1
+auth-none=1
+auth-validate-users=0
+```
+
+- rstudio-cdsw
+```
+#!/bin/bash
+
+# This saves RStudio's user runtime information to /tmp, which ensures several
+# RStudio sessions can run in the same project simultaneously
+mkdir -p /tmp/rstudio/sessions/active
+mkdir -p /home/cdsw/.rstudio/sessions
+if [ -d /home/cdsw/.rstudio/sessions/active ]; then rm -rf /home/cdsw/.rstudio/sessions/active; fi
+ln -s /tmp/rstudio/sessions/active /home/cdsw/.rstudio/sessions/active
+
+# This ensures RStudio picks up the environment. This may not be necessary if
+# you are installing RStudio Professional. See
+# https://docs.rstudio.com/ide/server-pro/r-sessions.html#customizing-session-launches.
+# SPARK_DIST_CLASSPATH is treated as a special case to workaround a bug in R
+# with very long environment variables.
+env | grep -v ^SPARK_DIST_CLASSPATH >> /usr/local/lib/R/etc/Renviron.site
+echo "Sys.setenv(\"SPARK_DIST_CLASSPATH\"=\"${SPARK_DIST_CLASSPATH}\")" >> /usr/local/lib/R/etc/Rprofile.site
+
+# Now start RStudio
+/usr/sbin/rstudio-server start
+```
+
+- Dockerfile 빌드 방법
+```
+MY_COMPANY=goodmit.com
+
+# Docker images Naming Rule   : rstudio.{company domain}:/cdsw/engine:8 
+#                                 회사의 도메인명                cdsw의 engine v8에서 생성을 의미
+# 예시  :  rstudio.kbcard.com:/cdsw/engine:8
+#        rstudio.kt.com:/cdsw/engine:8
+#        rstudio.shinhan.com:/cdsw/engine:8
+
+docker build --network=host  -t rstudio.${MY_COMPANY}:/cdsw/engine:8 . -f rstudio.${MY_COMPANY}.Dockerfile
+
+```
+
+- Docker image를 파일로 추출
+```
+MY_COMPANY=goodmit.com
+TODAY=`date "+%y%m%d"`
+
+docker save  rstudio.${MY_COMPANY}/cdsw/engine:8  | gzip > rstudio.${MY_COMPANY}_${TODAY}.tar.gz 
+```
+
+- rstudio.${MY_COMPANY}_${TODAY}.tar.gz  파일을 전달
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
