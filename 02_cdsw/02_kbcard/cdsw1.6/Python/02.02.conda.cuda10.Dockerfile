@@ -45,8 +45,9 @@ RUN mkdir -p /opt/conda/envs/python3.6  && \
 	conda install -y -n python3.6 numpy  && \
 	conda install -y -n python3.6 lightfm && \
 	conda install -y -n python3.6  -c conda-forge lightgbm  && \
-	conda clean -a && \
-    /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean -v netifaces \
+	conda clean -a  
+
+RUN /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean -v netifaces \
                  gputil gym  jupyterlab konlpy JPype1-py3  mglearn boruta && \
     pip3 install --no-cache-dir --no-clean -v netifaces \
 	     jupyterlab	
@@ -62,22 +63,6 @@ RUN cd /tmp/ && \
     ln -s -f /usr/local/lib/libz.so.1.2.9/lib libz.so.1 && \
     cd /tmp/ && rm -rf zlib-1.2.9
  
-# m4, autoconf , automake
-RUN cd /tmp && wget http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz && \
-    tar xvfz m4-1.4.18.tar.gz && \
-	cd m4-1.4.18 && \
-    ./configure --prefix=/usr && make && make install && \
-	cd /tmp  && rm -rf m4-1.4.18 && \
-    wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz  &&  \
-    gunzip autoconf-2.69.tar.gz  &&  \
-    tar xvf autoconf-2.69.tar  &&  \
-    cd autoconf-2.69 && ./configure &&  make &&  make install  &&  \
-	cd /tmp &&  rm -rf  autoconf-2.69  &&  \
-    curl -LO http://ftpmirror.gnu.org/automake/automake-1.11.tar.gz  &&  \
-    tar -zxvf automake-1.11.tar.gz  &&  \
-    cd automake-1.11  &&  \
-    ./configure  &&  make  &&  make install  &&  \
-    cd /tmp &&  rm -rf automake-1.11  && rm -f *.tar.gz
 
 ## m4, autoconf , automake, mecab-ko ##
 RUN cd /tmp && wget http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz && \
@@ -86,8 +71,7 @@ RUN cd /tmp && wget http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz && \
     ./configure --prefix=/usr && make && make install && \
 	cd /tmp  && rm -rf m4-1.4.18 && \
     wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz  &&  \
-    gunzip autoconf-2.69.tar.gz  &&  \
-    tar xvf autoconf-2.69.tar  &&  \
+    tar xvfz autoconf-2.69.tar.gz  &&  \
     cd autoconf-2.69 && ./configure &&  make &&  make install  &&  \
 	cd /tmp &&  rm -rf  autoconf-2.69  &&  \
     curl -LO http://ftpmirror.gnu.org/automake/automake-1.11.tar.gz  &&  \
@@ -141,12 +125,12 @@ RUN cd /tmp && wget http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz && \
 
 
 # add packages 
-RUN conda install -y -n python3.6  -c udst pandana urbanaccess   && \
-    conda install -y -n python3.6  geometric  && \
-    conda install -y -n python3.6  geopandas   && \
-    conda install -y -n python3.6  geojson   && \
-    conda install -y -n python3.6  shapely   && \
-    conda install -y -n python3.6  plotnine  &&  \
+RUN conda install -y -n python3.6  pandana urbanaccess  geometric  geopandas geojson shapely plotnine && \
+    #conda install -y -n python3.6  geometric  && \
+    #conda install -y -n python3.6  geopandas   && \
+    #conda install -y -n python3.6  geojson   && \
+    #conda install -y -n python3.6  shapely   && \
+    #conda install -y -n python3.6  plotnine  &&  \
     conda clean -a  && \
     cd /tmp && wget https://s3-us-west-2.amazonaws.com/xgboost-nightly-builds/xgboost-1.1.0_SNAPSHOT%2Bcfee9fae91975c64d9b6fc5dfdff294e9260c09f-py2.py3-none-manylinux1_x86_64.whl  && \
     /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean -v netifaces \
