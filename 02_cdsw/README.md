@@ -9,7 +9,7 @@
 - Conda / Python용 참고 자료
    - https://docs.cloudera.com/documentation/data-science-workbench/1-6-x/topics/cdsw_install_pkg_lib.html
 
-
+- 아래 도커 이미지 생성은 CDSW가 설치되지 않는 환경에서도 생성이 가능하며, docker1.13 버전 이상 설치된 리눅스( centos계열, 우분투계열)에서 빌드 가능
 
 
 ## 1. R/R-Studio를 사용하는 도커 이미지 만들기 
@@ -163,12 +163,12 @@ RUN /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  jupyter
 # Conda 패키지 설치할때  : 
 RUN conda install -y -n python3.6  numpy && \
     conda install -y -n python3.6  beautifulsoup4  && \
-    # 패키지 추가
+    # 패키지 추가   ... 
     conda clean -a  	     
 
 # PIP로 패키지 설치할때    
 RUN /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
-    gputil gym 
+    gputil gym  ... 
 	     
 ```
 
@@ -196,6 +196,135 @@ docker save  conda.${MY_COMPANY}/cdsw/engine:8  | gzip > conda.${MY_COMPANY}_${T
 ```
 
 - conda.${MY_COMPANY}_${TODAY}.tar.gz  파일을 전달
+
+
+
+## 3. GPU를 사용하는 파이션 패키지(tensorflow, pytorch, xgboost-gpu) 를 사용하는 도커 이미지 만들기  
+
+- Tensorflow2.x , pytorch1.3은  CUDA10 버전 사용
+- Tensorflow1.x 등은 CUDA9 버전 사용 
+
+
+- cuda9.{company domain}.Dockerfile 파일 생성 
+```
+FROM  docker.repository.cloudera.com/cdsw/engine:8
+
+RUN release="ubuntu1604" && \
+    echo $release &&  \
+    apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/"$release"/x86_64/7fa2af80.pub && \
+    echo "deb http://developer.download.nvidia.com/compute/cuda/repos/$release/x86_64 /" > /etc/apt/sources.list.d/cuda.list  && \
+    echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/$release/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
+
+ENV CUDA_VERSION 9.0.176
+LABEL com.nvidia.cuda.version="${CUDA_VERSION}"
+
+ENV CUDA_PKG_VERSION 9-0_$CUDA_VERSION-1
+RUN apt-get update &&  \
+    apt-get install -y --no-install-recommends  \
+            cuda-cudart-9-0 cuda-cublas-9-0  cuda-cufft-9-0 cuda-curand-9-0 cuda-cusolver-9-0 cuda-cusparse-9-0  && \
+    ln -s cuda-9.0 /usr/local/cuda && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf && \
+    ldconfig
+
+RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+
+
+ENV CUDNN_VERSION 7.5.1.10
+LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+            libcudnn7=$CUDNN_VERSION-1+cuda9.0 && \
+    apt-mark hold libcudnn7 && \
+    rm -rf /var/lib/apt/lists/*
+
+```
+
+ 
+- cuda10.{company domain}.Dockerfile 파일 생성 
+```
+FROM  docker.repository.cloudera.com/cdsw/engine:8
+
+RUN release="ubuntu1604" && \
+    echo $release &&  \
+    apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/"$release"/x86_64/7fa2af80.pub && \
+    echo "deb http://developer.download.nvidia.com/compute/cuda/repos/$release/x86_64 /" > /etc/apt/sources.list.d/cuda.list  && \
+    echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/$release/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
+
+ENV CUDA_VERSION 10.0.130
+LABEL com.nvidia.cuda.version="${CUDA_VERSION}"
+
+ENV CUDA_PKG_VERSION 10-0_$CUDA_VERSION-1
+RUN apt-get update &&  \
+    apt-get install -y --no-install-recommends cuda-cudart-10-0 && \
+    ln -s cuda-10.0 /usr/local/cuda && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf && \
+    ldconfig
+
+RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+
+
+ENV CUDNN_VERSION 7.5.1.10
+LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+            libcudnn7=$CUDNN_VERSION-1+cuda10.0 && \
+    apt-mark hold libcudnn7 && \
+    rm -rf /var/lib/apt/lists/*
+```
+
+
+
+- tensorflow2.0 예시 :  tensorflow2.0.{company domain}.Dockerfile 파일 생성 
+```
+FROM  cuda10.{company domain}/cdsw/engine:8
+
+RUN /opt/conda/envs/python3.6/bin/pip  install --no-cache-dir --no-clean  \
+        tensorflow-gpu==2.0  Keras 
+
+```
+
+- pytorch1.3 예시 : pytorch1.3.{company domain}.Dockerfile 파일 생성 
+```
+FROM  cuda10.{company domain}/cdsw/engine:8
+
+RUN conda install -n python3.6 -c anaconda pytorch-gpu=1.3.1 torchvision  
+
+```
+
+- tensorflow2.0 / pytorch1.3 빌드 예시
+```
+MY_COMPANY=goodmit.com
+TODAY=`date "+%y%m%d"`
+
+docker build --network=host -t cuda9.${SITE_DOMAIN}/cdsw/engine:8 .   -f  cuda9.${SITE_DOMAIN}.Dockerfile  
+docker build --network=host -t cuda10.${SITE_DOMAIN}m/cdsw/engine:8 . -f  cuda10.${SITE_DOMAIN}.Dockerfile
+
+
+docker build --network=host -t tensorflow2.0.${SITE_DOMAIN}/cdsw/engine:8 . -f  tensorflow2.0.${SITE_DOMAIN}.Dockerfile
+docker build --network=host -t pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8    . -f  pytorch1.3.${SITE_DOMAIN}.Dockerfile
+# tensorflow1.x, xgboot 등 추가
+```
+
+- Docker image를 파일로 추출
+```
+MY_COMPANY=goodmit.com
+TODAY=`date "+%y%m%d"`
+
+docker save  tensorflow2.0.${MY_COMPANY}/cdsw/engine:8  | gzip > tensorflow2.0.${MY_COMPANY}_${TODAY}.tar.gz 
+docker save  pytorch1.3.${MY_COMPANY}/cdsw/engine:8     | gzip > pytorch1.3.${MY_COMPANY}_${TODAY}.tar.gz 
+```
 
 
 
