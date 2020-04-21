@@ -15,9 +15,9 @@
 ## 1. R/R-Studio를 사용하는 도커 이미지 만들기 
 
 
-- rstudio.<company domain>.Dockerfile
+- rstudio.{company domain}.Dockerfile
 ```
-#Dockerfile Naming Rule : rstudio.<company domain>:/cdsw/engine:8 
+#Dockerfile Naming Rule : rstudio.{company domain}:/cdsw/engine:8 
 #                                 회사의 도메인명                  cdsw의 engine v8에서 생성을 의미
 # 예시  :  rstudio.kbcard.com:/cdsw/engine:8
 #        rstudio.kt.com:/cdsw/engine:8
