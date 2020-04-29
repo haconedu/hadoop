@@ -7,6 +7,7 @@ SITE_DOMAIN=kbcard.com
  sh 03_02_make.sh ${SITE_DOMAIN}  && \
  sh 03_03_make.sh ${SITE_DOMAIN}  && \
  sh 03_04_make.sh ${SITE_DOMAIN}  && \
+ sh 03_05_make.sh ${SITE_DOMAIN}  && \
  sh save_docker.sh  ${SITE_DOMAIN} 
  mv  *.tar.gz  ~/repo/
 

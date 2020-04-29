@@ -8,5 +8,6 @@ RUN apt-get update &&  \
     apt-get upgrade -y libstdc++6 
 
 RUN /opt/conda/envs/python3.6/bin/pip  install --no-cache-dir --no-clean -v netifaces \
-        tensorflow-gpu==1.12.0   Keras==2.2.0   Keras-Applications==1.0.4  keras_preprocessing==1.0.2
+        tensorflow-gpu==1.12.0   Keras==2.1.5   Keras-Applications  keras_preprocessing
+
 

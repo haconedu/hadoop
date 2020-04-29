@@ -53,7 +53,6 @@ from konlpy.tag import Mecab ; \
 MY_PKG="\
 import tensorflow ; \
 import keras ; \
-import onnxruntime ; \
 "
 echo "#### check tensorflow2.0  ####"
 echo "#### COMMON_PKG  ####"
@@ -68,8 +67,8 @@ docker run -it --rm --net=host --pid=host \
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "	   
 	   
 MY_PKG="\
-import tensorflow ; \
 import keras ; \
+import tensorflow ; \
 "
 echo "#### check tensorflow1.15  ####"
 echo "#### COMMON_PKG  ####"
@@ -102,7 +101,6 @@ docker run -it --rm --net=host --pid=host \
 MY_PKG="\
 import torch ; \
 import torchvision ; \
-import onnxruntime ; \
 import transformers ; \
 import kobert ; \
 import mxnet ; \

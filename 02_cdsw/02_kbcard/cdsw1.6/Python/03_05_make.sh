@@ -12,6 +12,6 @@ fi
 CURRENT_TIME='date +"%H:%M:%S"'
 echo "####start  sh 03_05_make.sh     `$CURRENT_TIME` ####"
 
-docker build --network=host -t mxnet.${SITE_DOMAIN}/cdsw/engine:8 . -f  03.05.mxnet.Dockerfile
+docker build --network=host -t mobilenet.${SITE_DOMAIN}/cdsw/engine:8 . -f  03.05.mobilenet.Dockerfile
 
 echo "####end  sh 03_05_make.sh     `$CURRENT_TIME` ####"

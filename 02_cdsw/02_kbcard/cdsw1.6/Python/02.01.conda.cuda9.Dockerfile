@@ -1,5 +1,6 @@
 FROM  cuda9.docker.repository.cloudera.com/cdsw/engine:8
 
+# 기본 OS 설정 ODBC, language-pack-ko
 RUN cd /tmp/ && \
     apt-get update &&  \
     apt-get install -y --no-install-recommends  \
@@ -20,7 +21,7 @@ RUN cd /tmp/ && \
     echo "LANG=\"ko_KR.UTF-8\"" >> /etc/default/locale && \
     echo "LANGUAGE=\"ko_KR:ko\"" >> /etc/default/locale 
   
-
+# 분석패키지 추가
 RUN mkdir -p /opt/conda/envs/python3.6  && \
     conda install -y nbconvert python=3.6.8 -n python3.6 && \
     conda install -y -n python3.6 numpy==1.17.5  && \
@@ -47,6 +48,7 @@ RUN mkdir -p /opt/conda/envs/python3.6  && \
 	conda install -y -n python3.6  -c conda-forge lightgbm  && \
 	conda clean -a  
 
+#쥬피터랩 jupyterlab konlpy
 RUN /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean -v netifaces \
                  gputil gym  jupyterlab konlpy JPype1-py3  mglearn boruta && \
     pip3 install --no-cache-dir --no-clean -v netifaces \
@@ -62,7 +64,8 @@ RUN cd /tmp/ && \
     cd /usr/lib/x86_64-linux-gnu/  && \
     ln -s -f /usr/local/lib/libz.so.1.2.9/lib libz.so.1 && \
     cd /tmp/ && rm -rf zlib-1.2.9
- 
+
+#은전한잎 설치
 ## m4, autoconf , automake, mecab-ko ##
 RUN cd /tmp && wget http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz && \
     tar xvfz m4-1.4.18.tar.gz && \
@@ -98,41 +101,20 @@ RUN cd /tmp && wget http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz && \
     /opt/conda/envs/python3.6/bin/python setup.py install   && \
     cd /tmp  && rm -rf mecab-python-0.996  && rm -f *.tar.gz
 
-# xgboost gpu 
-#RUN export CUDA_HOME=/usr/local/cuda && \
-#    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64 && \
-#    export PATH=$PATH:$CUDA_HOME/bin && \
-#    apt-get -y remove cmake && \
-#    cd /tmp  && \
-#    wget https://github.com/Kitware/CMake/releases/download/v3.17.1/cmake-3.17.1.tar.gz && \
-#	tar xvf cmake-3.17.1.tar.gz  && \
-#	cd cmake-3.17.1  && \
-#    ./configure && \
-#    make && \
-#    make install && \
-#	cd /tmp && rm -rf cmake-3.17.1  
-#	
-#RUN cd /tmp && git clone --recursive https://github.com/dmlc/xgboost && \
-#    cd xgboost  && \
-#    mkdir build  && \
-#    cd build  && \
-#    cmake .. -DUSE_CUDA=ON  && \
-#    make -j   && \ 
-#	cd /tmp &&  rm -rf  xgboost
-
-
-
-# add packages 
+###########################################
+# packages 추가시 수정할 부분
+###########################################
 RUN conda install -y -n python3.6  pandana urbanaccess  geometric  geopandas geojson shapely plotnine && \
-    #conda install -y -n python3.6  geometric  && \
-    #conda install -y -n python3.6  geopandas   && \
-    #conda install -y -n python3.6  geojson   && \
-    #conda install -y -n python3.6  shapely   && \
-    #conda install -y -n python3.6  plotnine  &&  \
-    conda clean -a  && \
-    cd /tmp && wget https://s3-us-west-2.amazonaws.com/xgboost-nightly-builds/xgboost-1.1.0_SNAPSHOT%2Bcfee9fae91975c64d9b6fc5dfdff294e9260c09f-py2.py3-none-manylinux1_x86_64.whl  && \
-    /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean -v netifaces \
-          gower PyKomoran pydotplus graphviz pysal tslearn folium Pillow  \
-    	  xgboost-1.1.0_*-py2.py3-none-manylinux1_x86_64.whl && \
-	rm -f *.whl
+    conda install -y -n python3.6  pyspark  && \
+    conda clean -a
+
+# xgboost
+RUN cd /tmp && wget https://s3-us-west-2.amazonaws.com/xgboost-nightly-builds/xgboost-1.1.0_SNAPSHOT%2Bcfee9fae91975c64d9b6fc5dfdff294e9260c09f-py2.py3-none-manylinux1_x86_64.whl  && \
+    /opt/conda/envs/python3.6/bin/pip install xgboost-1.1.0_*-py2.py3-none-manylinux1_x86_64.whl && \
+	rm -f *.whl  && \
+    /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
+          Cython  && \
+    /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
+	      gower PyKomoran pydotplus graphviz pysal tslearn folium Pillow 
+
     

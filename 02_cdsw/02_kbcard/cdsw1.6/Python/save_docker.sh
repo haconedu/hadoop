@@ -30,7 +30,7 @@ docker save  tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8 | gzip > tensorflow1.15
 
 docker save  pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8  | gzip >  pytorch1.3.${SITE_DOMAIN}_${TODAY}.tar.gz
 
-#docker save  mxnet.${SITE_DOMAIN}/cdsw/engine:8  | gzip >  mxnet.${SITE_DOMAIN}_${TODAY}.tar.gz
+docker save  mobilenet.${SITE_DOMAIN}/cdsw/engine:8  | gzip >  mobilenet.${SITE_DOMAIN}_${TODAY}.tar.gz
 
 
 echo "####end  sh save_docker.sh     `$CURRENT_TIME` ####"
