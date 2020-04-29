@@ -5,6 +5,16 @@
 ![](docker_arch.jpg)
 
 
+## 참조 자료
+- R / R-Studio 참고 자료 
+   - https://docs.cloudera.com/documentation/data-science-workbench/1-6-x/topics/cdsw_editors_browser.html
+
+- DeepLearning( GPU )용 참고 자료   
+   - https://docs.cloudera.com/documentation/data-science-workbench/1-6-x/topics/cdsw_gpu.html
+
+- Conda / Python용 참고 자료
+   - https://docs.cloudera.com/documentation/data-science-workbench/1-6-x/topics/cdsw_install_pkg_lib.html
+
 ## R용 도커 이미지 
 
 - R-Studio 기능 추가  
@@ -55,11 +65,7 @@
   - sh [check_pkg.sh](https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/check_pkg.sh) kbcard.com  : 설치한 패키지를 import 가 되는지 확인   
   - sh  all_kbcard.sh : 위의 단계를 한번에 처리
   
-  
-  
-  
-  
-  
+
   
   
   
