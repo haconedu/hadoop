@@ -43,4 +43,38 @@
 
 
 
-
+- 빌드 방법 
+  - sh 01_make.sh kbcard.com :  
+  - sh 02_make.sh kbcard.com : 
+  - sh 03_01_make.sh kbcard.com : Tensorflow 2.x  빌드 
+  - sh 03_02_make.sh kbcard.com : Tensorflow 1.12  빌드   
+  - sh 03_03_make.sh kbcard.com : pytorch 1.3  빌드 
+  - sh 03_04_make.sh kbcard.com : Tensorflow 1.15  빌드 
+  - sh 03_05_make.sh kbcard.com : Tensorflow 2.0 + [mobilenet V2](https://github.com/monatis/mobilenetv2-tf2.gi)  빌드 
+  - sh save_docker.sh kbcard.com :  파일로 추출
+  - sh [check_pkg.sh](https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/check_pkg.sh) kbcard.com  : 설치한 패키지를 import 가 되는지 확인   
+  - sh  all_kbcard.sh : 위의 단계를 한번에 처리
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
