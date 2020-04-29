@@ -25,19 +25,21 @@
   
 ## Python/Deeplearning용 도커 이미지 
 
+- CUDA 설정
+  - [01.01.cuda9.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/01.01.cuda9.Dockerfile)
+  - [01.02.cuda10.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/01.02.cuda10.Dockerfile)
 
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/01.01.cuda9.Dockerfile
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/01.02.cuda10.Dockerfile
+- conda/파이션 패치지 설정 
+  - [02.01.conda.cuda9.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/02.01.conda.cuda9.Dockerfile)
+  - [02.02.conda.cuda10.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/02.02.conda.cuda10.Dockerfile)
 
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/02.01.conda.cuda9.Dockerfile
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/02.02.conda.cuda10.Dockerfile
-
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.01.tensorflow2.0.Dockerfile
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.02.tensorflow1.12.Dockerfile
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.02.tensorflow1.12.NoneGpu.Dockerfile
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.03.pytorch1.3.Dockerfile
-https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.04.tensorflow1.15.Dockerfile
-
+- Deeplearning용 패키지 설정
+  - [03.01.tensorflow2.0.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.01.tensorflow2.0.Dockerfile)
+  - [03.02.tensorflow1.12.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.02.tensorflow1.12.Dockerfile)
+  - [03.02.tensorflow1.12.NoneGpu.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.02.tensorflow1.12.NoneGpu.Dockerfile)
+  - [03.03.pytorch1.3.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.03.pytorch1.3.Dockerfile)
+  - [03.04.tensorflow1.15.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.04.tensorflow1.15.Dockerfile)
+  - [03.05.mobilenet.Dockerfile]{https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/Python/03.05.mobilenet.Dockerfile)
 
 
 
