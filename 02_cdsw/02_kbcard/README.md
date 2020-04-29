@@ -8,10 +8,10 @@
 ## R용 도커 이미지 
 
 - R-Studio 기능 추가  
-[01.rstudio.Dockerfile](https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/R/01.rstudio.Dockerfile) 
+  - [01.rstudio.Dockerfile](https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/R/01.rstudio.Dockerfile) 
 
 - R패키지 추가( 290개 정도 ) 
-[02.R_LIB.Dockerfile](https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/R/02.R_LIB.Dockerfile)
+  - [02.R_LIB.Dockerfile](https://github.com/braveji18/hadoop/blob/master/02_cdsw/02_kbcard/cdsw1.6/R/02.R_LIB.Dockerfile)
 
 
 - 빌드 방법
