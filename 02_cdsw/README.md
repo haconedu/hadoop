@@ -12,6 +12,11 @@
 - 아래 도커 이미지 생성은 CDSW가 설치되지 않는 환경에서도 생성이 가능하며, docker1.13 버전 이상 설치된 리눅스( centos계열, 우분투계열)에서 빌드 가능
 
 
+## Docker 이미지 구조
+
+![](common_docker_structure.png)
+
+
 ## 1. R/R-Studio를 사용하는 도커 이미지 만들기 
 
 
