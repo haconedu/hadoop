@@ -31,6 +31,8 @@ COPY rstudio-cdsw /usr/local/bin/rstudio-cdsw
 RUN chmod +x /usr/local/bin/rstudio-cdsw
 
 # IMPALA / HIVE ODBC 
+# wget -O impala.rpm --no-check-certificate https://downloads.cloudera.com/connectors/ClouderaImpala_ODBC_2.6.10.1010/Linux/ClouderaImpalaODBC-2.6.10.1010-1.x86_64.rpm
+# wget -O hive.rpm --no-check-certificate https://downloads.cloudera.com/connectors/ClouderaHive_ODBC_2.6.4.1004/Linux/ClouderaHiveODBC-2.6.4.1004-1.x86_64.rpm
 RUN cd /tmp/ && \
     wget -O impala.deb --no-check-certificate https://downloads.cloudera.com/connectors/impala_odbc_2.5.41.1029/Debian/clouderaimpalaodbc_2.5.41.1029-2_amd64.deb   && \
     wget -O hive.deb --no-check-certificate  https://downloads.cloudera.com/connectors/ClouderaHive_ODBC_2.6.4.1004/Debian/clouderahiveodbc_2.6.4.1004-2_amd64.deb   && \
