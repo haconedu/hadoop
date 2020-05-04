@@ -66,8 +66,24 @@
   - sh  all_kbcard.sh : 위의 단계를 한번에 처리
   
 
+##  도커 이미지 관리 도구 : Portainer 
+- https://www.portainer.io/
+
+- 설치 및 실행 
+```
+# 설치 
+docker volume create portainer_data
+
+# 실행
+docker run -d -p 9002:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data --restart=always portainer/portainer
+
+# 파일로 추출 
+docker save  portainer/portainer:latest  | gzip > portainer.portainer.tar.gz 
+
+``` 
   
-  
+- WebUI 접속
+  - http://cdsw.kbcard.com:9002
   
   
   
