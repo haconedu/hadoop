@@ -4,7 +4,7 @@ FROM rstudio.docker.repository.cloudera.com/cdsw/engine:8
 
 WORKDIR /tmp
 
-ENV REPO_URL  https://cran.seoul.go.kr/
+ENV REPO_URL  https://cran.seoul.go.kr
 
 ##################################################
 ## STEP 01
@@ -28,6 +28,7 @@ RUN apt-get update && \
     R -e "install.packages('blob', repos='${REPO_URL}') " && \
     R -e "install.packages('broom', repos='${REPO_URL}') " && \
     R -e "install.packages('callr', repos='${REPO_URL}') " && \
+    R -e "install.packages('${REPO_URL}/src/contrib/Archive/pbkrtest/pbkrtest_0.4-7.tar.gz', repos = NULL, type='source') " && \
     R -e "install.packages('car', repos='${REPO_URL}') " && \
     R -e "install.packages('caret', repos='${REPO_URL}') " && \
     R -e "install.packages('caTools', repos='${REPO_URL}') " && \
@@ -55,14 +56,13 @@ RUN R -e "install.packages('dbplyr', repos='${REPO_URL}') " && \
     R -e "install.packages('dichromat', repos='${REPO_URL}') " && \
     R -e "install.packages('digest', repos='${REPO_URL}') " && \
     R -e "install.packages('diptest', repos='${REPO_URL}') " && \
-    R -e "install.packages('doBy', repos='${REPO_URL}') " && \
+    R -e "install.packages('${REPO_URL}/src/contrib/Archive/doBy/doBy_4.6-2.tar.gz',   repos = NULL, type='source' ) " && \
     R -e "install.packages('doMC', repos='${REPO_URL}') " && \
     R -e "install.packages('doParallel', repos='${REPO_URL}') " && \
     R -e "install.packages('doRNG', repos='${REPO_URL}') " && \
     R -e "install.packages('doSNOW', repos='${REPO_URL}') " && \
     R -e "install.packages('dplyr', repos='${REPO_URL}') " && \
     R -e "install.packages('dtw', repos='${REPO_URL}') " && \
-    R -e "install.packages('dtwclust', repos='${REPO_URL}') " && \
     R -e "install.packages('e1071', repos='${REPO_URL}') " && \
     R -e "install.packages('elasticnet', repos='${REPO_URL}') " && \
     R -e "install.packages('evaluate', repos='${REPO_URL}') " && \
@@ -86,7 +86,7 @@ RUN R -e "install.packages('dbplyr', repos='${REPO_URL}') " && \
     R -e "install.packages('gdata', repos='${REPO_URL}') " && \
     R -e "install.packages('geometry', repos='${REPO_URL}') " && \
     R -e "install.packages('ggplot2', repos='${REPO_URL}') " && \
-    R -e "install.packages('glmnet', repos='${REPO_URL}') " && \
+    R -e "install.packages('${REPO_URL}/src/contrib/Archive/glmnet/glmnet_2.0-18.tar.gz', repos = NULL, type='source')" && \
     R -e "install.packages('glue', repos='${REPO_URL}') " && \
     R -e "install.packages('gmp', repos='${REPO_URL}') "
 
@@ -102,6 +102,7 @@ RUN R -e "install.packages('GPFDA', repos='${REPO_URL}') " && \
     R -e "install.packages('gtools', repos='${REPO_URL}') " && \
     R -e "install.packages('haven', repos='${REPO_URL}') " && \
     R -e "install.packages('highr', repos='${REPO_URL}') " && \
+    R -e "install.packages('${REPO_URL}/src/contrib/Archive/latticeExtra/latticeExtra_0.6-28.tar.gz', repos = NULL, type='source') " && \
     R -e "install.packages('Hmisc', repos='${REPO_URL}') " && \
     R -e "install.packages('hms', repos='${REPO_URL}') " && \
     R -e "install.packages('htmlTable', repos='${REPO_URL}') " && \
@@ -118,7 +119,6 @@ RUN R -e "install.packages('GPFDA', repos='${REPO_URL}') " && \
     R -e "install.packages('irlba', repos='${REPO_URL}') " && \
     R -e "install.packages('iterators', repos='${REPO_URL}') " && \
     R -e "install.packages('itertools', repos='${REPO_URL}') " && \
-    R -e "install.packages('JavaGD', repos='${REPO_URL}') " && \
     R -e "install.packages('jpeg', repos='${REPO_URL}') " && \
     R -e "install.packages('jsonlite', repos='${REPO_URL}') " && \
     R -e "install.packages('kerasR', repos='${REPO_URL}') " && \
@@ -130,7 +130,6 @@ RUN R -e "install.packages('GPFDA', repos='${REPO_URL}') " && \
     R -e "install.packages('labeling', repos='${REPO_URL}') " && \
     R -e "install.packages('lambda.r', repos='${REPO_URL}') " && \
     R -e "install.packages('lars', repos='${REPO_URL}') " && \
-    R -e "install.packages('latticeExtra', repos='${REPO_URL}') " && \
     R -e "install.packages('lava', repos='${REPO_URL}') " && \
     R -e "install.packages('lazyeval', repos='${REPO_URL}') " && \
     R -e "install.packages('lhs', repos='${REPO_URL}') " && \
@@ -167,15 +166,12 @@ RUN R -e "install.packages('lme4', repos='${REPO_URL}') " && \
     R -e "install.packages('network', repos='${REPO_URL}') " && \
     R -e "install.packages('NeuralNetTools', repos='${REPO_URL}') " && \
     R -e "install.packages('nloptr', repos='${REPO_URL}') " && \
-    R -e "install.packages('NMF', repos='${REPO_URL}') " && \
     R -e "install.packages('nnet', repos='${REPO_URL}') " && \
     R -e "install.packages('numDeriv', repos='${REPO_URL}') " && \
     R -e "install.packages('odbc', repos='${REPO_URL}') " && \
     R -e "install.packages('OpenImageR', repos='${REPO_URL}') " && \
     R -e "install.packages('openssl', repos='${REPO_URL}') " && \
-    R -e "install.packages('parallelDist', repos='${REPO_URL}') " && \
     R -e "install.packages('partykit', repos='${REPO_URL}') " && \
-    R -e "install.packages('pbkrtest', repos='${REPO_URL}') " && \
     R -e "install.packages('pdc', repos='${REPO_URL}') " && \
     R -e "install.packages('permute', repos='${REPO_URL}') " && \
     R -e "install.packages('pillar', repos='${REPO_URL}') "
@@ -209,7 +205,6 @@ RUN R -e "install.packages('pkgconfig', repos='${REPO_URL}') " && \
     R -e "install.packages('Rcpp', repos='${REPO_URL}') " && \
     R -e "install.packages('RcppArmadillo', repos='${REPO_URL}') " && \
     R -e "install.packages('RcppEigen', repos='${REPO_URL}') " && \
-    R -e "install.packages('RcppParallel', repos='${REPO_URL}') " && \
     R -e "install.packages('readr', repos='${REPO_URL}') " && \
     R -e "install.packages('readxl', repos='${REPO_URL}') " && \
     R -e "install.packages('registry', repos='${REPO_URL}') " && \
@@ -234,7 +229,7 @@ RUN R -e "install.packages('RMySQL', repos='${REPO_URL}') " && \
     R -e "install.packages('robustbase', repos='${REPO_URL}') " && \
     R -e "install.packages('ROCR', repos='${REPO_URL}') " && \
     R -e "install.packages('RODBC', repos='${REPO_URL}') " && \
-    R -e "install.packages('rowr', repos='${REPO_URL}') " && \
+    R -e "install.packages('${REPO_URL}/src/contrib/Archive/rowr/rowr_1.1.2.tar.gz', repos = NULL, type='source') " && \
     R -e "install.packages('rpart', repos='${REPO_URL}') " && \
     R -e "install.packages('rprojroot', repos='${REPO_URL}') " && \
     R -e "install.packages('rstudioapi', repos='${REPO_URL}') " && \

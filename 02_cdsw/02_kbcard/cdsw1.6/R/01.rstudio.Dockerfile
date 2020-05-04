@@ -19,7 +19,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
             libxml2-dev  libnlopt-dev  \
             unixodbc-dev iodbc libiodbc2  \
             xorg libx11-dev  libglu1-mesa-dev  libfreetype6-dev   \
-            libgmp-dev   libblas-dev libblas3
+            libgmp-dev   libblas-dev libblas3 libtiff5-dev
 
 RUN wget https://download2.rstudio.org/server/trusty/amd64/rstudio-server-1.2.1335-amd64.deb && \
     dpkg -i rstudio-server-1.2.1335-amd64.deb
