@@ -12,7 +12,7 @@ RUN cd /tmp/ && \
             unixodbc-dev iodbc libiodbc2  \
             xorg libx11-dev  libglu1-mesa-dev  libfreetype6-dev   \
             libgmp-dev   libblas-dev libblas3 \
-            libstdc++6  libcupti-dev openjdk-8-jdk	&& \
+            libstdc++6  libcupti-dev openjdk-8-jdk	graphviz  && \
     wget -O impala.deb --no-check-certificate https://downloads.cloudera.com/connectors/impala_odbc_2.5.41.1029/Debian/clouderaimpalaodbc_2.5.41.1029-2_amd64.deb && \
     wget -O hive.deb --no-check-certificate  https://downloads.cloudera.com/connectors/ClouderaHive_ODBC_2.6.4.1004/Debian/clouderahiveodbc_2.6.4.1004-2_amd64.deb && \
     dpkg -i  impala.deb hive.deb  && \
