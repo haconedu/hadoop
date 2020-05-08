@@ -116,7 +116,7 @@ RUN cd /tmp && wget https://s3-us-west-2.amazonaws.com/xgboost-nightly-builds/xg
     /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
           Cython  && \
     /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
-	      gower PyKomoran pydotplus graphviz pysal tslearn folium Pillow 
+	      gower PyKomoran pydotplus graphviz pysal tslearn folium Pillow pdpbox
 
 
 
