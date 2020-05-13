@@ -105,7 +105,6 @@ RUN cd /tmp && wget http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz && \
 # packages 추가시 수정할 부분
 ###########################################
 RUN conda install -y -n python3.6  pandana urbanaccess  geometric  geopandas geojson shapely plotnine && \
-    conda install -y -n python3.6  pyspark  && \
     conda clean -a
 
 # xgboost
@@ -115,6 +114,6 @@ RUN cd /tmp && wget https://s3-us-west-2.amazonaws.com/xgboost-nightly-builds/xg
     /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
           Cython  && \
     /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
-	      gower PyKomoran pydotplus graphviz pysal tslearn folium Pillow  pdpbox
+	      gower PyKomoran pydotplus graphviz pysal tslearn folium Pillow  pdpbox pyspark
 
     
