@@ -11,27 +11,49 @@ RUN apt-get update &&  \
             libgmp-dev   libblas-dev libblas3 \
             libstdc++6  libcupti-dev openjdk-8-jdk	\
             git wget build-essential unzip  \
-            graphviz libgraphviz-dev pkg-config  \
+            graphviz libgraphviz-dev pkg-config  libc6-dev  \
             swig  libx11-dev libgsl0-dev libopenblas-dev liblapacke-dev && \
     rm -rf  *.deb && rm -rf /var/lib/apt/lists/* 
 
+RUN mkdir -p /opt/conda/envs/python3.6  && \
+    conda install -y  -n python3.6  biopython=1.70   python=3.6.8  && \
+    conda install -y -n python3.6 statsmodels  && \
+    conda install -y -n python3.6 -c bioconda    \
+                      pysam   \
+                      plink    \
+                      gffutils   \
+                      genepop   \
+                      trimal    \
+                      eigensoft   \
+                      dendropy   && \
+    conda install -y -n python3.6    \
+                      simuPOP rpy2 r-base=3.5 r-ggplot2 r-gridextra \
+                      pygraphviz simplegeneric \
+                      seaborn pexpect pyvcf networkx reportlab  \
+                      tzlocal  && \
+    conda clean -a  
 
-RUN R -e "source('http://bioconductor.org/biocLite.R') ; biocLite()   " && \
+# /opt/conda/envs/python3.6/bin/R
+RUN conda install -y -n python3.6  libiconv  && \
+    R -e "source('http://bioconductor.org/biocLite.R') ; biocLite()   " && \
     R -e "install.packages('ggplot2')"  && \
     R -e "install.packages('gridExtra')" 
-
-RUN mkdir -p /opt/conda/envs/python3.6  && \
-    conda install -y  -n python3.6  biopython=1.70   python=3.6.8 && \
-    conda install -y - n python3.6 statsmodels pysam plink gffutils genepop trimal  && \
-    conda install -y - n python3.6 simuPOP rpy2 r-ggplot2 r-gridextra && \
-    conda install -y - n python3.6 pygraphviz eigensoft && \
-    conda install -y - n python3.6 seaborn pexpect pyvcf dendropy networkx reportlabi && \
-    conda install -y - n python3.6 tzlocal  && \
-    conda clean -a 
      
 RUN /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean -v netifaces \
                  jupyterlab pygenomics   && \
+    /opt/conda/envs/python3.6/bin/pip uninstall -y enum34 && \
     pip3 install --no-cache-dir --no-clean -v netifaces \
 	     jupyterlab	
 
-RUN git clone https://github.com/PacktPublishing/Bioinformatics-with-Python-Cookbook-Second-Edition.git
+RUN cd /tmp/ && \
+    wget --no-check-certificate  https://jaist.dl.sourceforge.net/project/libpng/zlib/1.2.9/zlib-1.2.9.tar.gz  && \
+    tar -xvf zlib-1.2.9.tar.gz && \
+    cd zlib-1.2.9   && \
+    ./configure &&  make && make install && \
+    cd /usr/lib/x86_64-linux-gnu/  && \
+    ln -s -f /usr/local/lib/libz.so.1.2.9/lib libz.so.1 && \
+    cd /tmp/ && rm -rf zlib-1.2.9
+
+ENV LD_LIBRARY_PATH /usr/local/lib/R/lib/:${LD_LIBRARY_PATH}
+
+#RUN git clone https://github.com/PacktPublishing/Bioinformatics-with-Python-Cookbook-Second-Edition.git
