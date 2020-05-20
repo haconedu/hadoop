@@ -16,7 +16,8 @@ RUN cd /tmp/ && \
     rm -rf  *.deb && rm -rf /var/lib/apt/lists/* 
   
 
-RUN mkdir -p /opt/conda/envs/python3.6  && \
+RUN conda update -n base -c defaults conda  && \
+    mkdir -p /opt/conda/envs/python3.6  && \
     conda install -y nbconvert python=3.6.9 -n python3.6 && \
     conda install -y -n python3.6 bokeh  && \
     conda install -y -n python3.6 gensim  && \
