@@ -2,22 +2,19 @@
 
 - R / R-Studio 참고 자료 
    - https://docs.cloudera.com/documentation/data-science-workbench/1-6-x/topics/cdsw_editors_browser.html
-
 - DeepLearning( GPU )용 참고 자료   
    - https://docs.cloudera.com/documentation/data-science-workbench/1-6-x/topics/cdsw_gpu.html
-
 - Conda / Python용 참고 자료
    - https://docs.cloudera.com/documentation/data-science-workbench/1-6-x/topics/cdsw_install_pkg_lib.html
-
 - 아래 도커 이미지 생성은 CDSW가 설치되지 않는 환경에서도 생성이 가능하며, docker1.13 버전 이상 설치된 리눅스( centos계열, 우분투계열)에서 빌드 가능
 
 
-## Docker 이미지 구조
+## 1. Docker 이미지 구조
 
 ![](common_docker_structure.png)
 
 
-## 1. R/R-Studio를 사용하는 도커 이미지 만들기 
+## 2. R/R-Studio를 사용하는 도커 이미지 만들기 
 
 
 - rstudio.{company domain}.Dockerfile 파일 생성 
@@ -127,11 +124,11 @@ docker save  rstudio.${MY_COMPANY}/cdsw/engine:8  | gzip > rstudio.${MY_COMPANY}
 
  
 
-## 2. GPU를 사용하지 않는 conda/python 패키지를 사용하는 도커 이미지 만들기  
+## 3. GPU를 사용하지 않는 conda/python 패키지를 사용하는 도커 이미지 만들기  
 - python2.x 사용하지 않으므로  python3.x 용만 설명
 
 
-  
+
 - conda.{company domain}.Dockerfile 파일 생성 
 ```
 FROM docker.repository.cloudera.com/cdsw/engine:8
@@ -204,7 +201,7 @@ docker save  conda.${MY_COMPANY}/cdsw/engine:8  | gzip > conda.${MY_COMPANY}_${T
 
 
 
-## 3. GPU를 사용하는 파이션 패키지(tensorflow, pytorch, xgboost-gpu) 를 사용하는 도커 이미지 만들기  
+## 4. GPU를 사용하는 파이션 패키지(tensorflow, pytorch, xgboost-gpu) 를 사용하는 도커 이미지 만들기  
 
 - Tensorflow2.x , pytorch1.3은  CUDA10 버전 사용
 - Tensorflow1.x 등은 CUDA9 버전 사용 
@@ -250,7 +247,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ```
 
- 
+
 - cuda10.{company domain}.Dockerfile 파일 생성 
 ```
 FROM  docker.repository.cloudera.com/cdsw/engine:8
@@ -330,12 +327,5 @@ TODAY=`date "+%y%m%d"`
 docker save  tensorflow2.0.${MY_COMPANY}/cdsw/engine:8  | gzip > tensorflow2.0.${MY_COMPANY}_${TODAY}.tar.gz 
 docker save  pytorch1.3.${MY_COMPANY}/cdsw/engine:8     | gzip > pytorch1.3.${MY_COMPANY}_${TODAY}.tar.gz 
 ```
-
-
-
-
-
-
-
 
 

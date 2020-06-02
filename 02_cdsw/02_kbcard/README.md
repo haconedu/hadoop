@@ -80,16 +80,20 @@ docker run -d -p 9002:9000 -v /var/run/docker.sock:/var/run/docker.sock -v porta
 # 파일로 추출 
 docker save  portainer/portainer:latest  | gzip > portainer.portainer.tar.gz 
 
-``` 
-  
+```
+
 - WebUI 접속
   - http://cdsw.kbcard.com:9002
   
   
   
+  ## XAI 모듈 추가
   
-  
-  
+  ```
+  # XAI
+      /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
+            pdpbox lime ipywidgets shap 
+  ```
   
   
   
