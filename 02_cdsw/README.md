@@ -334,7 +334,7 @@ docker save  pytorch1.3.${MY_COMPANY}/cdsw/engine:8     | gzip > pytorch1.3.${MY
 
 - 등록 예시
 
-![cdsw01](D:\Work_Git\hadoop\02_cdsw\cdsw01.jpg)
+![cdsw01](cdsw01.jpg)
 
 - Edit Engine Image 에서 용도에 맞는 Editor 추가
 
