@@ -329,3 +329,29 @@ docker save  pytorch1.3.${MY_COMPANY}/cdsw/engine:8     | gzip > pytorch1.3.${MY
 ```
 
 
+
+5. CDSW에 도커이미지 등록
+
+- 등록 예시
+
+![cdsw01](D:\Work_Git\hadoop\02_cdsw\cdsw01.jpg)
+
+- Edit Engine Image 에서 용도에 맞는 Editor 추가
+
+```
+# python용 editor 
+Name : JupyterLab
+Command : /opt/conda/envs/python3.6/bin/jupyter-lab --no-browser --ip=127.0.0.1 --port=${CDSW_APP_PORT} --NotebookApp.token= --NotebookApp.allow_remote_access=True --log-level=ERROR
+
+# R용 editor 
+Name : RStudio
+Command : /usr/local/bin/rstudio-cdsw
+```
+
+- 환경변수 추가
+
+```
+Name : PYTHONPATH
+Value : $PYTHONPATH:/opt/conda/envs/python3.6/lib/python3.6/site-packages
+```
+
