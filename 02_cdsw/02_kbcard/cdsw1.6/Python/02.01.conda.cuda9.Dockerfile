@@ -108,11 +108,12 @@ RUN conda install -y -n python3.6  pandana urbanaccess  geometric  geopandas geo
     conda clean -a
 
 # xgboost
-RUN cd /tmp && wget https://s3-us-west-2.amazonaws.com/xgboost-nightly-builds/xgboost-1.1.0_SNAPSHOT%2Bcfee9fae91975c64d9b6fc5dfdff294e9260c09f-py2.py3-none-manylinux1_x86_64.whl  && \
-    /opt/conda/envs/python3.6/bin/pip install xgboost-1.1.0_*-py2.py3-none-manylinux1_x86_64.whl && \
-	rm -f *.whl  && \
-    /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
-          Cython  && \
+#RUN cd /tmp && wget https://s3-us-west-2.amazonaws.com/xgboost-nightly-builds/xgboost-1.1.0_SNAPSHOT%2Bcfee9fae91975c64d9b6fc5dfdff294e9260c09f-py2.py3-none-manylinux1_x86_64.whl  && \
+#    /opt/conda/envs/python3.6/bin/pip install xgboost-1.1.0_*-py2.py3-none-manylinux1_x86_64.whl && \
+#	rm -f *.whl  && \
+
+RUN /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
+          Cython  xgboost==1.0.0  && \
     /opt/conda/envs/python3.6/bin/pip install --no-cache-dir --no-clean  \
 	      gower PyKomoran pydotplus graphviz pysal tslearn folium Pillow  pyspark  && \
 # XAI
