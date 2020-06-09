@@ -9,6 +9,14 @@ if [ "$SITE_DOMAIN"  == "" ]; then
 
 fi
 
+CURRENT_DATE=$2
+if [ "$CURRENT_DATE"  == "" ]; then
+
+    CURRENT_DATE=`date +"%Y%m%d"`
+fi
+
+
+
 COMMON_PKG="\
 import numpy ; \
 import bokeh ; \
@@ -57,12 +65,12 @@ import keras ; \
 echo "#### check tensorflow2.0  ####"
 echo "#### COMMON_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       tensorflow2.0.${SITE_DOMAIN}/cdsw/engine:8  \
+       tensorflow2.0.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \"  "
 echo "#### MY_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       tensorflow2.0.${SITE_DOMAIN}/cdsw/engine:8  \
+       tensorflow2.0.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "	   
 	   
@@ -73,12 +81,12 @@ import tensorflow ; \
 echo "#### check tensorflow1.15  ####"
 echo "#### COMMON_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8  \
+       tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \"  "
 echo "#### MY_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8  \
+       tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "
 
@@ -89,12 +97,12 @@ import keras ; \
 echo "#### check tensorflow1.12  ####"
 echo "#### COMMON_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       tensorflow1.12.${SITE_DOMAIN}/cdsw/engine:8  \
+       tensorflow1.12.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \"  "
 echo "#### MY_PKG  ####"	   
 docker run -it --rm --net=host --pid=host \
-       tensorflow1.12.NoneGPU.${SITE_DOMAIN}/cdsw/engine:8  \
+       tensorflow1.12.NoneGPU.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "
 	   
@@ -110,12 +118,11 @@ import sentencepiece ; \
 echo "#### check pytorch1.3  ####"
 echo "#### COMMON_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8  \
+       pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \" "
 echo "#### MY_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8  \
+       pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
        /bin/bash 	\
-	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "
-	   
+	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"

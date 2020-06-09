@@ -1,6 +1,7 @@
 
 SITE_DOMAIN=kbcard.com
-CURRENT_DATE='date +"%Y%m%d"'
+CURRENT_DATE=`date +"%Y%m%d"`
+
 
  sh 01_make.sh  && \
  sh 02_make.sh  && \

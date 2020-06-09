@@ -14,7 +14,7 @@ fi
 CURRENT_DATE=$2
 if [ "$CURRENT_DATE"  == "" ]; then
 
-    CURRENT_DATE='date +"%Y%m%d"'
+    CURRENT_DATE=`date +"%Y%m%d"`
 fi
 
 
