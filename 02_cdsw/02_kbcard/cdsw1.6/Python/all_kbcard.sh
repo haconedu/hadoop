@@ -10,6 +10,7 @@ CURRENT_DATE=`date +"%Y%m%d"`
  sh 03_03_make.sh ${SITE_DOMAIN} ${CURRENT_DATE}  && \
  sh 03_04_make.sh ${SITE_DOMAIN} ${CURRENT_DATE}  && \
  sh 03_05_make.sh ${SITE_DOMAIN} ${CURRENT_DATE}  && \
+ sh 03_06_make.sh ${SITE_DOMAIN} ${CURRENT_DATE}  && \
 # sh save_docker.sh  ${SITE_DOMAIN} ${CURRENT_DATE} 
 # mv  *.tar.gz  ~/repo/
 

@@ -35,7 +35,8 @@ docker save  tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8.${TODAY} | gzip > tenso
 
 docker save  pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8.${TODAY}  | gzip >  pytorch1.3.${SITE_DOMAIN}_${TODAY}.tar.gz
 
-docker save  mobilenet.${SITE_DOMAIN}/cdsw/engine:8.${TODAY}  | gzip >  mobilenet.${SITE_DOMAIN}_${TODAY}.tar.gz
+#docker save  mobilenet.${SITE_DOMAIN}/cdsw/engine:8.${TODAY}  | gzip >  mobilenet.${SITE_DOMAIN}_${TODAY}.tar.gz
 
+docker save  tensorflow1.12.multiGPU.${SITE_DOMAIN}/cdsw/engine:8.${TODAY} | gzip > tensorflow1.12.multiGpu.${SITE_DOMAIN}_${TODAY}.tar.gz 
 
 echo "####end  sh save_docker.sh     `$CURRENT_TIME` ####"
