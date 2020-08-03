@@ -57,55 +57,34 @@ import gower ; \
 import PyKomoran ; \
 from konlpy.tag import Mecab ; \
 "
+echo "#### COMMON_PKG  ####"
+docker run -it --rm --net=host --pid=host \
+       conda.${SITE_DOMAIN}/cdsw/engine:10.${CURRENT_DATE}  \
+       /bin/bash 	\
+	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \"  "
 
+
+echo "#### check tensorflow2.0  ####"
 MY_PKG="\
 import tensorflow ; \
 import keras ; \
 "
-echo "#### check tensorflow2.0  ####"
-echo "#### COMMON_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       tensorflow2.0.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
-       /bin/bash 	\
-	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \"  "
-echo "#### MY_PKG  ####"
-docker run -it --rm --net=host --pid=host \
-       tensorflow2.0.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
+       tensorflow2.3.${SITE_DOMAIN}/cdsw/engine:10.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "	   
-	   
+
+echo "#### check tensorflow1.15  ####"	   
 MY_PKG="\
 import keras ; \
 import tensorflow ; \
 "
-echo "#### check tensorflow1.15  ####"
-echo "#### COMMON_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
-       /bin/bash 	\
-	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \"  "
-echo "#### MY_PKG  ####"
-docker run -it --rm --net=host --pid=host \
-       tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
+       tensorflow1.15.${SITE_DOMAIN}/cdsw/engine:10.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "
 
-MY_PKG="\
-import tensorflow ; \
-import keras ; \
-"
-echo "#### check tensorflow1.12  ####"
-echo "#### COMMON_PKG  ####"
-docker run -it --rm --net=host --pid=host \
-       tensorflow1.12.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
-       /bin/bash 	\
-	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \"  "
-echo "#### MY_PKG  ####"	   
-docker run -it --rm --net=host --pid=host \
-       tensorflow1.12.NoneGPU.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
-       /bin/bash 	\
-	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"   "
-	   
+echo "#### check pytorch1.3  ####"	   
 MY_PKG="\
 import torch ; \
 import torchvision ; \
@@ -115,14 +94,7 @@ import mxnet ; \
 import gluonnlp ; \
 import sentencepiece ; \
 "
-echo "#### check pytorch1.3  ####"
-echo "#### COMMON_PKG  ####"
 docker run -it --rm --net=host --pid=host \
-       pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
-       /bin/bash 	\
-	   -c "/opt/conda/envs/python3.6/bin/python -c \"$COMMON_PKG  \" "
-echo "#### MY_PKG  ####"
-docker run -it --rm --net=host --pid=host \
-       pytorch1.3.${SITE_DOMAIN}/cdsw/engine:8.${CURRENT_DATE}  \
+       pytorch1.3.${SITE_DOMAIN}/cdsw/engine:10.${CURRENT_DATE}  \
        /bin/bash 	\
 	   -c "/opt/conda/envs/python3.6/bin/python -c \"$MY_PKG  \"
